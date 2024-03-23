@@ -5,4 +5,5 @@ public class ResourcePath {
     public static final String API_VERSION_1 = "v1/";
 
     public static final String PRODUCT_LIST_URL = "product/inquiry";
+    public static final String PRODUCT_GET_ONE_URL = "product/detail/{id}";
 }

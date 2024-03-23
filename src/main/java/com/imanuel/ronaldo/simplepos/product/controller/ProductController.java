@@ -11,10 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.function.Function;
 
@@ -25,6 +22,15 @@ public class ProductController {
 
     @Autowired
     ProductService productService;
+
+    @GetMapping(value = ResourcePath.PRODUCT_GET_ONE_URL)
+    public ResponseEntity<ProductDTO> getOneProduct(
+            @PathVariable(required = true) Long id
+    ){
+        Product product = productService.getProduct(Long.valueOf(id));
+        ProductDTO productDTO = ProductEntityToDTO.INSTANCE.productToProductDTO(product);
+        return ResponseEntity.ok().body(productDTO);
+    }
 
     @GetMapping(value = ResourcePath.PRODUCT_LIST_URL)
     public ResponseEntity<Page<ProductDTO>> getAllProductBySearchAndSort(
