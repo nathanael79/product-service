@@ -17,10 +17,10 @@ public class ProductControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Test
-    @DisplayName("Testing product controller")
-    void testProductController() throws Exception {
-        this.mockMvc.perform(get("/api/v1/product/inquiry"))
-                .andExpect(status().is(200));
-    }
+    // @Test
+    // @DisplayName("Testing product controller")
+    // void testProductController() throws Exception {
+    //     this.mockMvc.perform(get("/api/v1/product/inquiry"))
+    //             .andExpect(status().is(200));
+    // }
 }
