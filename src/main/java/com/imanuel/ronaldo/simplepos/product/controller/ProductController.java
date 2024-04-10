@@ -27,7 +27,7 @@ public class ProductController {
     public ResponseEntity<ProductDTO> getOneProduct(
             @PathVariable(required = true) Long id
     ){
-        Product product = productService.getProduct(Long.valueOf(id));
+        Product product = productService.getProduct(id);
         ProductDTO productDTO = ProductEntityToDTO.INSTANCE.productToProductDTO(product);
         return ResponseEntity.ok().body(productDTO);
     }
@@ -51,6 +51,23 @@ public class ProductController {
         });
 
         return ResponseEntity.ok().body(productDTOS);
+    }
+
+    @PostMapping(value = ResourcePath.PRODUCT_CREATE_URL)
+    public ResponseEntity<ProductDTO> createProduct(
+            @RequestBody ProductDTO productDTO
+    ){
+        ProductDTO newProduct = ProductEntityToDTO.INSTANCE.productToProductDTO(productService.createProduct(productDTO));
+        return ResponseEntity.ok().body(newProduct);
+    }
+
+    @PatchMapping(value = ResourcePath.PRODUCT_UPDATE_URL)
+    public ResponseEntity<ProductDTO> updateProduct(
+            @PathVariable(required = true) Long id,
+            @RequestBody(required = true) ProductDTO productDTO
+    ){
+        ProductDTO updatedProduct = ProductEntityToDTO.INSTANCE.productToProductDTO(productService.updateProduct(id, productDTO));
+        return ResponseEntity.ok().body(updatedProduct);
     }
 
 

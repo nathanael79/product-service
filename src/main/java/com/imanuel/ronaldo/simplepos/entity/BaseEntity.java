@@ -1,14 +1,18 @@
-package com.imanuel.ronaldo.simplepos;
+package com.imanuel.ronaldo.simplepos.entity;
 
 import jakarta.persistence.Column;
-import org.springframework.data.annotation.CreatedDate;
+import jakarta.persistence.MappedSuperclass;
+import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 import java.util.Date;
 
+@MappedSuperclass
+@EqualsAndHashCode(callSuper = false)
 public class BaseEntity {
-    @CreatedDate
+    @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private Date createdAt;
 
