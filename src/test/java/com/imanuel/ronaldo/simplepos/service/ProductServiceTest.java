@@ -23,6 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -134,6 +135,30 @@ class ProductServiceTest {
     @Test
     @DisplayName("Update a product and check the method is true")
     void updateProductTest() {
-        
+            // Prepare test data
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setName("product1new");
+        productDTO.setPrice(BigInteger.valueOf(12000));
+
+        Product existingProduct = new Product();
+        existingProduct.setId(Long.valueOf(1));
+        existingProduct.setName("product1");
+        existingProduct.setPrice(BigInteger.valueOf(10000));
+
+        Product updatedProduct = new Product();
+        updatedProduct.setId(Long.valueOf(1));
+        updatedProduct.setName("product1new");
+        updatedProduct.setPrice(BigInteger.valueOf(12000));
+
+        when(productRepository.findById(anyLong())).thenReturn(Optional.of(existingProduct));
+        when(productRepository.save(any(Product.class))).thenReturn(updatedProduct);
+
+          // Call the tested method
+        Product result = productService.updateProduct(Long.valueOf(1), productDTO);
+
+        // Assertions
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(productDTO.getName(), result.getName());
+        Assertions.assertEquals(productDTO.getPrice(), result.getPrice());
     }
 }

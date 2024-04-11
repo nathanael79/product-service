@@ -32,12 +32,20 @@ public class ProductService {
     }
 
     public Product updateProduct(Long id, ProductDTO productDTO){
-        Product product = getProduct(id);
+        Product product = getProduct(id); //yang di testing ini
 
+        //dan juga testing bagian ini
         product.setName(productDTO.getName());
         product.setPrice(productDTO.getPrice());
         product.setIsActive(true);
 
+
+        //perlu verify
         return productRepository.save(product);
+
+        //jadi ada total 3 testing
+        //testing ketika get
+        //testing ketika update
+        //testing apakah method dipanggil dengan benar atau tidak
     }
 }
