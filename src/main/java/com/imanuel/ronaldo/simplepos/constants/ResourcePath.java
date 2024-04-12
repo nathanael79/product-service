@@ -10,4 +10,5 @@ public class ResourcePath {
 
     public static final String PRODUCT_LIST_URL = "product/inquiry";
     public static final String PRODUCT_GET_ONE_URL = "product/detail/{id}";
+    public static final String PRODUCT_DELETE_URL = "product/delete/{id}";
 }

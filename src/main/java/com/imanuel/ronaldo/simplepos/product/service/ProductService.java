@@ -48,4 +48,9 @@ public class ProductService {
         //testing ketika update
         //testing apakah method dipanggil dengan benar atau tidak
     }
+
+    public void deleteProduct(Long id){
+        Product product = getProduct(id);
+        productRepository.delete(product);
+    }
 }

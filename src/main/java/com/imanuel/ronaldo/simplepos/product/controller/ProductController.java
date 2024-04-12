@@ -70,6 +70,12 @@ public class ProductController {
         return ResponseEntity.ok().body(updatedProduct);
     }
 
-
+    @DeleteMapping(value = ResourcePath.PRODUCT_DELETE_URL)
+    public ResponseEntity<?> deleteProduct(
+        @PathVariable(required = true) Long id
+    ){
+        productService.deleteProduct(id);
+        return ResponseEntity.noContent().build();
+    }
 
 }

@@ -25,6 +25,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -160,5 +162,24 @@ class ProductServiceTest {
         Assertions.assertNotNull(result);
         Assertions.assertEquals(productDTO.getName(), result.getName());
         Assertions.assertEquals(productDTO.getPrice(), result.getPrice());
+    }
+
+    @Test
+    @DisplayName("Delete a product")
+    void deleteProductTest() {
+        Long id = Long.valueOf(1);
+
+        Product existedProduct = new Product();
+        existedProduct.setId(id);
+        existedProduct.setName("product1");
+        existedProduct.setPrice(BigInteger.valueOf(10000));
+        existedProduct.setIsActive(true);
+
+        when(productRepository.findById(anyLong())).thenReturn(Optional.of(existedProduct));
+        doNothing().when(productRepository).delete(any(Product.class));
+
+        productService.deleteProduct(id);
+
+        verify(productRepository, times(1)).delete(existedProduct);
     }
 }
