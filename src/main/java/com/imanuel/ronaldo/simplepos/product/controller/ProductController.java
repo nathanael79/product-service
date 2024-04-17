@@ -1,5 +1,6 @@
 package com.imanuel.ronaldo.simplepos.product.controller;
 
+import com.imanuel.ronaldo.simplepos.component.CustomPageRequest;
 import com.imanuel.ronaldo.simplepos.constants.ResourcePath;
 import com.imanuel.ronaldo.simplepos.product.converter.ProductEntityToDTO;
 import com.imanuel.ronaldo.simplepos.product.dto.ProductDTO;
@@ -7,7 +8,6 @@ import com.imanuel.ronaldo.simplepos.product.entity.Product;
 import com.imanuel.ronaldo.simplepos.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
@@ -34,13 +34,13 @@ public class ProductController {
 
     @GetMapping(value = ResourcePath.PRODUCT_LIST_URL)
     public ResponseEntity<Page<ProductDTO>> getAllProductBySearchAndSort(
-            @RequestParam(defaultValue = "0") Integer pageNo,
+            @RequestParam(defaultValue = "1") Integer pageNo,
             @RequestParam(defaultValue = "10") Integer pageSize,
             @RequestParam(defaultValue = "id") String sortBy,
             @RequestParam(defaultValue = "asc") String orderBy
     ){
         Sort sort = orderBy.equalsIgnoreCase("ASC") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
-        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+        Pageable pageable = new CustomPageRequest(pageNo, pageSize, sort);
         Page<Product> products = productService.getAllProduct(pageable);
 
         Page<ProductDTO> productDTOS = products.map(new Function<Product, ProductDTO>() {
