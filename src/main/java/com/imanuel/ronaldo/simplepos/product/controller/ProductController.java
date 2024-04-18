@@ -1,6 +1,6 @@
 package com.imanuel.ronaldo.simplepos.product.controller;
 
-import com.imanuel.ronaldo.simplepos.component.CustomPageRequest;
+import com.imanuel.ronaldo.simplepos.utils.CustomPageRequest;
 import com.imanuel.ronaldo.simplepos.constants.ResourcePath;
 import com.imanuel.ronaldo.simplepos.product.converter.ProductEntityToDTO;
 import com.imanuel.ronaldo.simplepos.product.dto.ProductDTO;

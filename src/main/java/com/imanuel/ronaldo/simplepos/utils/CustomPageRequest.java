@@ -1,4 +1,4 @@
-package com.imanuel.ronaldo.simplepos.component;
+package com.imanuel.ronaldo.simplepos.utils;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
