@@ -12,6 +12,7 @@ import java.util.Date;
 @MappedSuperclass
 @EqualsAndHashCode(callSuper = false)
 public class BaseEntity {
+
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private Date createdAt;
