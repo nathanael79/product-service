@@ -1,5 +1,6 @@
 package com.imanuel.ronaldo.simplepos.product.controller;
 
+import com.imanuel.ronaldo.simplepos.response.GenericResponse;
 import com.imanuel.ronaldo.simplepos.utils.CustomPageRequest;
 import com.imanuel.ronaldo.simplepos.constants.ResourcePath;
 import com.imanuel.ronaldo.simplepos.product.converter.ProductEntityToDTO;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,12 +26,17 @@ public class ProductController {
     ProductService productService;
 
     @GetMapping(value = ResourcePath.PRODUCT_GET_ONE_URL)
-    public ResponseEntity<ProductDTO> getOneProduct(
+    public ResponseEntity<GenericResponse<ProductDTO>> getOneProduct(
             @PathVariable(required = true) Long id
     ){
         Product product = productService.getProduct(id);
         ProductDTO productDTO = ProductEntityToDTO.INSTANCE.productToProductDTO(product);
-        return ResponseEntity.ok().body(productDTO);
+        GenericResponse<ProductDTO> genericResponse = GenericResponse.<ProductDTO>builder()
+                .message("SUCCESS")
+                .statusCode(HttpStatus.OK.toString())
+                .data(productDTO)
+                .build();
+        return ResponseEntity.ok().body(genericResponse);
     }
 
     @GetMapping(value = ResourcePath.PRODUCT_LIST_URL)
